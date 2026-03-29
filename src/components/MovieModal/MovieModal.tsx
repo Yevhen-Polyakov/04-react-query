@@ -5,11 +5,11 @@ import { createPortal } from 'react-dom'
 import { useEffect } from 'react'
 
 interface MovieModalProps{
-    item: Movie,
+    movie: Movie,
     onClose: () => void,
 }
 
-const MovieModal = ({item, onClose}:MovieModalProps) => {
+const MovieModal = ({movie, onClose}:MovieModalProps) => {
 
     function closeBackdrop(e: React.MouseEvent<HTMLDivElement>){
         if(e.target === e.currentTarget){
@@ -36,7 +36,7 @@ const MovieModal = ({item, onClose}:MovieModalProps) => {
 
     }, [onClose])
 
-    const{id, backdrop_path, title, vote_average, overview, release_date} = item
+    const{id, backdrop_path, title, vote_average, overview, release_date} = movie
         return createPortal(
             <div 
                 className={css.backdrop} 

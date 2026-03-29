@@ -16,6 +16,7 @@ function App() {
 
 async function handleSearch(query: string) {
     try {
+      setMovies([]);
       setIsLoading(true);
       setIsError(false);
 
@@ -47,10 +48,10 @@ async function handleSearch(query: string) {
         <ErrorMessage/>
       )}
 
-      <MovieGrid onSelect={(movie: Movie) => {setSelectedMovie(movie)}} items={movies}/>
+      <MovieGrid onSelect={(movie: Movie) => {setSelectedMovie(movie)}} movies={movies}/>
       <Toaster/>
       {selectedMovie && selectedMovie && (
-        <MovieModal onClose={() => setSelectedMovie(null)} item={selectedMovie}/>
+        <MovieModal onClose={() => setSelectedMovie(null)} movie={selectedMovie}/>
       )}
       
     </>
