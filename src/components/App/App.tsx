@@ -1,6 +1,7 @@
 import { Toaster } from "react-hot-toast"
+import toast from "react-hot-toast"
 import SearchBar from "../SearchBar/SearchBar"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import type { Movie } from "../../types/movie"
 import { fetchMovies } from "../../services/movieService"
 import type { MovieData } from "../../services/movieService"
@@ -19,6 +20,7 @@ function App() {
   const {data, isLoading, isError, isSuccess} = useQuery<MovieData>({
     queryKey: ["query", movies, page],
     queryFn: () => fetchMovies(movies, page),
+    enabled: movies !== "",
     placeholderData: keepPreviousData,
   })
 
@@ -28,6 +30,12 @@ function App() {
     setMovies(newMovies)
     setPage(1)
   }
+
+  useEffect(() => {
+    if (isSuccess && data && data.results.length === 0) {
+      toast("Фільми не знайдено.", { icon: "🔍" });
+    }
+  }, [isSuccess, data]);
 
   return (
     <>
